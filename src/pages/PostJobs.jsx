@@ -3,6 +3,29 @@ import { JobsContext } from '../contexts/JobsContext'
 
 const PostJobs = () => {
   const [open, setOpen] = useState(false)
+  const [location, setlocation] = useState(null)
+
+  function getLocation (){
+    if(!navigator.geolocation){
+      alert('Geolocation is not supported')
+      return
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const coords ={
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+
+        setlocation(coords)
+      },
+      (error) => {
+        alert('Location permission denied')
+        console.log(error); 
+      }
+    );
+  }
   return (
     <div>
       <p>Post a job for your business requirements</p>
@@ -22,7 +45,11 @@ const PostJobs = () => {
             <div className='flex flex-col'>
               <label htmlFor="">location</label>
               <input className='border border-blue-600 rounded-lg my-1 px-4 py-2' type="text" placeholder='your address...'/>
-              <button className='bg-green-500 rounded-lg p-2 my-2'>Use live Location</button>
+
+              <p>{location?.lat}</p>
+              <p>{location?.lng}</p>
+
+              <button onClick={getLocation} className='bg-green-500 rounded-lg p-2 my-2'>Use live Location</button>
             </div>
 
             <div className='flex gap-1'>
