@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
+import { JobsContext } from '../contexts/JobsContext'
 
 const PostJobs = () => {
+  
   return (
-    <div>PostJobs</div>
+    <div>
+      PostJobs
+    </div>
   )
 }
 
